@@ -249,7 +249,7 @@ module Shumway.GFX {
      * Container div element that is managed by this easel. If the dimensions of this element change, then the dimensions of the root
      * stage also change.
      */
-    private _container: HTMLDivElement;
+    private _container: HTMLCanvasElement;
 
     private _renderer: Renderer;
 
@@ -268,7 +268,7 @@ module Shumway.GFX {
     private _fullScreen: boolean = false;
 
     constructor(
-      container: HTMLDivElement,
+      container: HTMLCanvasElement,
       disableHiDPI: boolean = false,
       backgroundColor: number = undefined
     ) {
@@ -281,32 +281,8 @@ module Shumway.GFX {
       this._worldView.addChild(this._world);
       this._disableHiDPI = disableHiDPI;
 
-      // Create stage container.
-      var stageContainer = document.createElement("div");
-      stageContainer.style.position = "absolute";
-      stageContainer.style.width = "100%";
-      stageContainer.style.height = "100%";
-      container.appendChild(stageContainer);
 
-      // Create hud container, that lives on top of the stage.
-      if (hud.value) {
-        var hudContainer = document.createElement("div");
-        hudContainer.style.position = "absolute";
-        hudContainer.style.width = "100%";
-        hudContainer.style.height = "100%";
-        hudContainer.style.pointerEvents = "none";
-        hudContainer.style.opacity = "0.7";
-        var fpsContainer = document.createElement("div");
-        fpsContainer.style.position = "absolute";
-        fpsContainer.style.width = "100%";
-        fpsContainer.style.height = "20px";
-        fpsContainer.style.pointerEvents = "none";
-        hudContainer.appendChild(fpsContainer);
-        container.appendChild(hudContainer);
-        this._fps = new FPS(fpsContainer);
-      } else {
-        this._fps = null;
-      }
+      this._fps = null;
 
       var transparent = backgroundColor === 0;
       this.transparent = transparent;
@@ -318,7 +294,7 @@ module Shumway.GFX {
       this._options = new Canvas2D.Canvas2DRendererOptions();
       this._options.alpha = transparent;
 
-      this._renderer = new Canvas2D.Canvas2DRenderer(stageContainer, this._stage, this._options);
+      this._renderer = new Canvas2D.Canvas2DRenderer(container, this._stage, this._options);
       this._listenForContainerSizeChanges();
       this._onMouseUp = this._onMouseUp.bind(this)
       this._onMouseDown = this._onMouseDown.bind(this);
@@ -504,11 +480,11 @@ module Shumway.GFX {
     }
 
     private get _containerWidth(): number {
-      return this._container.clientWidth;
+      return this._container.width;
     }
 
     private get _containerHeight(): number {
-      return this._container.clientHeight;
+      return this._container.height;
     }
 
     queryNodeUnderMouse(event: MouseEvent): Node {
