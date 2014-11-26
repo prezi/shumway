@@ -79,9 +79,11 @@ function createEasel() {
   var Stage = Shumway.GFX.Stage;
   var Easel = Shumway.GFX.Easel;
   var Canvas2DRenderer = Shumway.GFX.Canvas2DRenderer;
+  var canvas = document.createElement("canvas");
+  document.body.appendChild(canvas);
 
   Shumway.GFX.WebGL.SHADER_ROOT = "../src/gfx/gl/shaders/";
-  return new Easel(document.getElementById("easelContainer"));
+  return new Easel(canvas);
 }
 
 document.addEventListener("DOMContentLoaded", runViewer);
