@@ -104,7 +104,7 @@ module Shumway.AVM2.AS.flash.display {
     // List of instance symbols to link.
     static instanceSymbols: string [] = null;
 
-    static WORKERS_AVAILABLE = typeof Worker !== 'undefined';
+    static WORKERS_AVAILABLE = false; //typeof Worker !== 'undefined';
     static LOADER_PATH = 'swf/worker.js';
 
     static runtimeStartTime: number = 0;
