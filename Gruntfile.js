@@ -25,7 +25,7 @@ module.exports = function(grunt) {
   // needed by the build system.
   var commonArguments = 'node utils/typescript/tsc --target ES5 --removeComments --sourcemap -d --out build/ts/';
 
-  var closureCommand = 'java -jar utils/closure.jar --formatting PRETTY_PRINT --compilation_level SHUMWAY_OPTIMIZATIONS --language_in ECMASCRIPT5 ';
+  var closureCommand = 'java -jar utils/closure.jar --formatting PRETTY_PRINT --compilation_level WHITESPACE_ONLY --language_in ECMASCRIPT5 ';
 
   var defaultBrowserManifestFile = './resources/browser_manifests/browser_manifest.json';
   var defaultTestsManifestFile = 'test_manifest.json';
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
   });
 
   function expandFilePattern(pattern) {
-    return '"' + grunt.file.expand(pattern).join('" "') + '"'
+    return '"' + grunt.file.expand(pattern).join('" "') + '"';
   }
 
   grunt.initConfig({
@@ -143,11 +143,12 @@ module.exports = function(grunt) {
           "build/ts/base.js",
           "build/ts/tools.js",
           "build/ts/avm2.js",
+          "build/ts/swf.js",
           "build/ts/flash.js",
           "build/ts/avm1.js",
           "build/ts/gfx-base.js",
-          "build/ts/gfx.js",
-          "build/ts/player.js"
+          "build/ts/player.js",
+          "build/ts/gfx.js"
         ].join(" ") + " > build/shumway.cc.js"
       },
       "closure-all": {
