@@ -143,11 +143,11 @@ module.exports = function(grunt) {
           "build/ts/base.js",
           "build/ts/tools.js",
           "build/ts/avm2.js",
+          "build/ts/swf.js",
           "build/ts/flash.js",
           "build/ts/avm1.js",
           "build/ts/gfx-base.js",
           "build/ts/player.js",
-          "build/ts/swf.js",
           "build/ts/gfx.js"
         ].join(" ") + " > build/shumway.cc.js"
       },

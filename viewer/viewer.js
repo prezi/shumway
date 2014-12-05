@@ -93,13 +93,9 @@ function runViewer() {
 }
 
 function createEasel() {
-  var Stage = Shumway.GFX.Stage;
   var Easel = Shumway.GFX.Easel;
-  var Canvas2DStageRenderer = Shumway.GFX.Canvas2DStageRenderer;
-
   Shumway.GFX.WebGL.SHADER_ROOT = SHUMWAY_ROOT + "gfx/gl/shaders/";
-  var backend = Shumway.GFX.backend.value | 0;
-  return new Easel(document.getElementById("stageContainer"), backend, false, bgcolor);
+  return new Easel(document.getElementById("stageContainer"));
 }
 
 document.addEventListener("DOMContentLoaded", runViewer);
@@ -196,7 +192,8 @@ function runSwfPlayer(flashParams) {
   var movieParams = flashParams.movieParams;
   var objectParams = flashParams.objectParams;
   var movieUrl = flashParams.url;
-  Shumway.createAVM2(builtinPath, viewerPlayerglobalInfo, avm1Path, sysMode, appMode, function (avm2) {
+
+  Shumway.createAVM2(builtinPath, viewerPlayerglobalInfo, sysMode, appMode, function (avm2) {
     new Shumway.BinaryFileReader(movieUrl).readAll(null, function(buffer, error) {
       var file = Shumway.FileLoadingService.instance.setBaseUrl(baseUrl);
       if (!buffer) {
@@ -208,19 +205,3 @@ function runSwfPlayer(flashParams) {
     });
   });
 }
-
-/*
-window.addEventListener('message', function onWindowMessage(e) {
-  var data = e.data;
-  if (typeof data !== 'object' || data === null || data.type !== 'runSwf') {
-    return;
-  }
-  window.removeEventListener('message', onWindowMessage);
-
-  if (data.settings) {
-    Shumway.Settings.setSettings(data.settings);
-  }
-  runSwfPlayer(data.flashParams);
-});
-
-*/
